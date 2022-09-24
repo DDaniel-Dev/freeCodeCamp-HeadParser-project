@@ -1,5 +1,7 @@
 // index.js
 // where your node app starts
+// -- http://localhost:3000/ -- //
+
 
 // init project
 require('dotenv').config();
@@ -27,4 +29,15 @@ app.get('/api/hello', function (req, res) {
 // listen for requests :)
 var listener = app.listen(process.env.PORT || 3000, function () {
   console.log('Your app is listening on port ' + listener.address().port);
+});
+
+
+// -- Start HeadParser Project -- //
+app.enable('trust proxy');
+app.get("/api/whoami", (req, res) => {
+  res.json({ 
+    ipaddress: req.ip, 
+    language: req.get("accept-language"), 
+    software: req.get("user-agent") 
+  });
 });
